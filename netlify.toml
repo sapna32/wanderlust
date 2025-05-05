@@ -1,5 +1,5 @@
 [build]
-  command = "npm install && nodemon app.js
+  command = "npm install && nodemon app.js"
   publist = "/build"
   base = "/"
 
