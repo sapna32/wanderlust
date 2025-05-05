@@ -1,6 +1,6 @@
 [build]
-  command = "npm install && nodemon app.js"
-  publist = "/build"
+  command = "npm install && node app.js"
+  publish = "/"
   base = "/"
 
 [[redirects]]
