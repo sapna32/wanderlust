@@ -1,0 +1,58 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-7">
+      <h2 class="mb-4">Book your stay at <%= listing.title %></h2>
+      <form action="/bookings" method="POST">
+        <input type="hidden" name="listingId" value="<%= listing._id %>">
+
+        <div class="mb-3">
+          <label for="checkIn" class="form-label">Check-in</label>
+          <input type="date" class="form-control" id="checkIn" name="checkIn" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="checkOut" class="form-label">Check-out</label>
+          <input type="date" class="form-control" id="checkOut" name="checkOut" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="guests" class="form-label">Guests</label>
+          <select name="guests" id="guests" class="form-select" required>
+            <% for(let i = 1; i <= 10; i++) { %>
+              <option value="<%= i %>"><%= i %> guest<%= i > 1 ? 's' : '' %></option>
+            <% } %>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="notes" class="form-label">Special requests (optional)</label>
+          <textarea name="notes" id="notes" class="form-control" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-danger w-100">Reserve</button>
+      </form>
+    </div>
+
+    <div class="col-md-5">
+      <div class="card shadow-sm">
+        <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
+        <div class="card-body">
+          <h5 class="card-title"><%= listing.title %></h5>
+          <p class="card-text"><%= listing.location %></p>
+          <p class="card-text">
+            <strong>&#8377;<%= listing.price.toLocaleString("en-IN") %></strong> / night
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Script to prevent selecting past dates -->
+<script>
+  const today = new Date().toISOString().split("T")[0];
+  document.getElementById("checkIn").setAttribute("min", today);
+  document.getElementById("checkOut").setAttribute("min", today);
+</script>
